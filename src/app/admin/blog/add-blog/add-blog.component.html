@@ -1,0 +1,89 @@
+<app-header></app-header>
+<aside class="sidebar sidebar-left sidebar-menu">
+    <app-admin-menu></app-admin-menu>
+</aside>
+
+
+<section id="main" role="main">
+    <div class="container-fluid">
+        <div class="page-header page-header-block mb0">
+            <div class="page-header-section">
+                <h4 class="title semibold text-capitalize">{{btn}}</h4>
+            </div>
+            <div class="page-header-section">
+                <div class="toolbar">
+                    <ol class="breadcrumb breadcrumb-transparent nm">
+                        <li><a routerLink="/">Dashboards</a></li>
+                        <li class="active">{{btn}}</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+
+        
+        <div class="alert alert-dismissable mt10"  [class.ar-none]="sucs==null?true:false" [class.alert-success]="sucs==true?true:false"  [class.alert-danger]="sucs==false?true:false">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+            {{message}}
+            <strong><a routerLink="/blog">View Blog</a></strong>
+        </div>
+
+        <div class="row" [formGroup]="blog">
+            <div class="col-sm-8 mt10"> 
+                <label>Blog Title <span class="error">*</span></label>
+                <input type="text" class="form-control" placeholder="Blog Title" [(ngModel)]="bloger.blogTitle" formControlName="blogTitle"/>
+            </div>
+            <div class="col-sm-4 mt10"> 
+                <label>Blog Category <span class="error">*</span></label>
+                <ng-multiselect-dropdown 
+                    [placeholder]="'Select Category By Name ....'"
+                    [settings]="dropdownSettings"
+                    [data]="category"
+                    [(ngModel)]="selectedItems"
+                    formControlName="categories"
+                    (click)="dropDownSelect = true">
+                </ng-multiselect-dropdown>
+            </div>
+            <div class="col-sm-12 mt10"> 
+                <label>Short Description<span class="error">*</span></label>
+                <textarea class="form-control" rows="5" [(ngModel)]="bloger.shortDescription" formControlName="shortDescription"></textarea>
+            </div>
+            <div class="col-sm-4 mt10"> 
+                <label>Upload Thumbnil Image</label>
+                <input (change)="onselectfile($event)" class="form-control" type="file" formControlName="images"/>
+            </div>
+            <div *ngIf="imgess!=null" class="col-sm-4 mt10"> 
+                <img height="70px" [src]="imgess" alt="images">
+            </div>
+            <div class="col-sm-12 mt10"> 
+                <label>Full Description</label>
+                <angular-editor formControlName="description" [(ngModel)]="bloger.description" [config]="editorConfig" [placeholder]="'Enter full discription...'"></angular-editor>
+                
+            </div>
+            
+            <div class="col-sm-12"> 
+                <h3>SEO Managment:</h3>
+            </div>
+            <div class="col-sm-4"> 
+                <label>Page Title </label>
+                <input type="text" class="form-control" maxlength="80" placeholder="Product Title" [(ngModel)]="bloger.title" formControlName="title"/>
+            </div>
+            <div class="col-sm-8"> 
+                <label>Page Keywords </label>
+                <input type="text" class="form-control" placeholder="Product keyword" [(ngModel)]="bloger.keyword" formControlName="keyword"/>
+            </div>
+            <div class="col-sm-12">
+                <label>Page Description </label>
+                <textarea class="form-control" rows="5" maxlength="180" placeholder="Product Description" [(ngModel)]="bloger.discription" formControlName="discription"></textarea>
+            </div>
+
+            
+            <div class="col-sm-12 mt10"> 
+                <button (click)="saveBlog()" class="btn btn-success">
+                    <img *ngIf="loading" src="https://img.getege.com/main/ar1.gif" alt="loading">
+                    <span *ngIf="!loading">{{btn}}</span>
+                </button><br><br><br><br><br>
+            </div>
+
+        </div>
+    </div>
+</section>

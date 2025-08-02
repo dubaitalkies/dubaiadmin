@@ -1,0 +1,130 @@
+<app-header></app-header>
+<aside class="sidebar sidebar-left sidebar-menu">
+    <app-admin-menu></app-admin-menu>
+</aside>
+
+<section id="main" role="main">
+    <div class="container-fluid">
+        <div class="page-header page-header-block mb0">
+            <div class="page-header-section">
+                <div class="row">
+                    <div class="col-md-3">
+                        <h4 class="title semibold text-capitalize">Category List</h4>
+                    </div>
+                    <div class="col-md-4">
+
+                    </div>
+                </div>
+            </div>
+            <div class="page-header-section">
+                <div class="toolbar">
+                    <button routerLink="/category" type="button" class="btn btn-danger mb5"><i class="ico-fire22"></i>
+                        Add new Category</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-default">
+                    <div class="table-responsive panel-collapse pull out">
+                        <table class="table table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th class="num">#</th>
+                                    <th>Category</th>
+                                    <th>Slug</th>
+                                    <th class="text-center aewidth100">Status</th>
+                                    <th class="text-center aewidth100">Update</th>
+                                </tr>
+                            </thead>
+
+                            <tbody runat="server" id="datatable" class="datatable">
+                                <tr [class.success]="data.status=='Accepted'?true:false"
+                                    [class.danger]="data.status=='0'?true:false"
+                                    *ngFor="let data of category; index as i;">
+                                    <th class="num">{{ i+1 }}</th>
+                                    <td>{{data.title}}</td>
+                                    <td>{{data.slug}}</td>
+                                    <td class="text-center">
+                                        <label class="switch switch-success">
+                                            <input (change)="updateCrs(i)" type="checkbox" [checked]="data.status==1"
+                                                [(ngModel)]="data.status">
+                                            <span class="switch"></span>
+                                        </label>
+                                    </td>
+                                    <td class="text-center">
+                                        <i (click)="upprod(i)" routerLink="/add-product/{{data.id}}" class="ico-pencil3 ar-pointer ar-blue mr5" title="Edit"></i>
+                                        <i (click)="delete(data.id)" class="ico-trash ar-pointer ar-red" title="Delete"></i>
+                                    </td>
+                                </tr>
+                                <tr *ngIf="nodata.length>0">
+                                    <td colspan="11">{{nodata}}</td>
+                                </tr>
+                                <tr *ngIf="loging">
+                                    <td colspan="11">
+                                        <div class="text-center ptb-50">
+                                            <img src="/assets/image/loading/spinner1tr@2x.gif" alt="aeromus.com" />
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="myModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button #closeAddExpenseModal type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                        <h5 class="modal-title" id="myModalLabel">Child Category</h5>
+                    </div>
+                    <div class="modal-body">
+                        <div class="panel panel-default">
+                            <div class="plr-10 ptb-10">
+                                <div class="row" [formGroup]="job">
+                                    <div class="col-sm-6">
+                                        <label>Category <span class="error">*</span></label>
+                                        <input type="text" (keyup)="onKey($event)" class="form-control" placeholder="Category Name" [(ngModel)]="uprod.title" formControlName="title" />
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <label>Slug</label>
+                                        <input type="text" class="form-control" placeholder="Category Name" [(ngModel)]="uprod.slug" formControlName="slug" />
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <h3>SEO Managment:</h3>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <label>Page Title </label>
+                                        <input type="text" class="form-control" placeholder="Category Title" [(ngModel)]="uprod.pagetitle" formControlName="pagetitle" />
+                                    </div>
+                                    <div class="col-sm-8">
+                                        <label>Page Keywords </label>
+                                        <input type="text" class="form-control" placeholder="Category keyword" [(ngModel)]="uprod.keyword" formControlName="keyword" />
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <label>Page Description </label>
+                                        <textarea class="form-control" rows="5" placeholder="Category Description" [(ngModel)]="uprod.discription" formControlName="discription"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button (click)="saveproduct()" type="button" class="btn btn-success">
+                            <img *ngIf="preload" src="/assets/image/loading/ar1.gif" alt="aeromus.com"/>
+                            <span *ngIf="!preload">Save Category</span>
+                        </button>
+                        <button type="button" data-dismiss="modal" class="btn btn-info"> Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</section>

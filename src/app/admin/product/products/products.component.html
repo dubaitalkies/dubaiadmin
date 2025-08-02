@@ -1,0 +1,134 @@
+<app-header></app-header>
+<aside class="sidebar sidebar-left sidebar-menu">
+    <app-admin-menu></app-admin-menu>
+</aside>
+
+
+<section id="main" role="main">
+    <div class="container-fluid">
+        <div class="page-header page-header-block mb0">
+            <div class="page-header-section">
+                <div class="row">
+                    <div class="col-md-3">
+                        <h4 class="title semibold text-capitalize">Product List</h4>
+                    </div>
+                    <div class="col-md-4">
+                        <select class="form-control" (change)="change($event)">
+                            <option>All Category</option>
+                            <option>Diabetes Medicine</option>
+                            <option>Antiviral Medicine</option>
+                            <option>Cancer Medicine</option>
+                            <option>Erectile Dysfunction</option>
+                            <option>Viagra</option>
+                            <option>Allergy</option>
+                            <option>Antibiotic Medicine</option>
+                            <option>Pain Relief</option>
+                            <option>HCG</option>
+                            <option>Hair Loss</option>
+                            <option>Migraine Medicine</option>
+                            <option>Eyecare Medicine</option>
+                            <option>Asthma Medicine</option>
+                            <option>Gastro Medicine</option>
+                            <option>Heart and Blood Pressure</option>
+                            <option>Weight Loss Medicines</option>
+                            <option>Birth Control medicine</option>
+                            <option>HIV Medicine</option>
+                            <option>Kidney Medicine</option>
+                            <option>Cialis</option>
+                            <option>LEVITRA</option>
+                            <option>Men Health</option>
+                            <option>Women Health</option>
+                            <option>Other medicine</option>
+                            <option value="Alzheimers medicine">Alzheimer's medicine</option>
+                            <option>Antiparkinsonian Medicine</option>
+                            <option>Antifungal medicine</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="page-header-section">
+                <div class="toolbar">
+                    <button routerLink="/add-products" type="button" class="btn btn-danger mb5"><i class="ico-fire22"></i> Add new Product</button>
+                </div>
+            </div>
+        </div>
+        
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel-body ar-bbtm" >
+                    <div class="row">
+                        <div class="col-md-3 pl0">
+
+                        </div>
+                        <div class="col-md-7"></div>
+                        <div class="col-md-2 text-right pr0">
+                            
+                        </div>
+                    </div>
+                </div>
+                <div class="panel panel-default">
+                    <div class="table-responsive panel-collapse pull out">
+                        <table class="table table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th class="num">#</th> 
+                                    <th class="text-center">Image</th> 
+                                    <th>Name</th> 
+                                    <th class="aewidth100">Sale Price</th> 
+                                    <th class="aewidth100">Regular Price</th> 
+                                    <th class="text-center">Category</th>
+                                    <th class="text-center">Update</th>
+                                </tr>
+                            </thead>
+                            <tbody runat="server" id="datatable" class="datatable">
+                                <tr [class.success]="data.status=='Accepted'?true:false" [class.danger]="data.status=='0'?true:false"  *ngFor="let data of produc; index as i;">
+                                    <th class="num">{{ i+1 }}</th> 
+                                    <td>
+                                        <div class="aerprofile">
+                                            <img class="img-bordered" src="{{data.images}}" alt="" height="60px">
+                                        </div>
+                                    </td>
+                                    <td>{{data.name}}</td> 
+                                    <td class="text-center">₹ {{data.salePrice}}</td> 
+                                    <td class="text-center">₹ {{data.regularPrice}}</td>
+                                    <td class="text-center">{{data.categories}}</td>  
+                                    <td class="text-center">
+                                        <i class="ico-clock ar-pointer ar-green mr5 d-none" title="Schedule"></i>
+                                        <i (click)="upprod(i)" routerLink="/add-product/{{data.id}}" class="ico-pencil3 ar-pointer ar-blue mr5" title="Edit"></i>
+                                        <i (click)="delete(data.id)" class="ico-trash ar-pointer ar-red" title="Delete"></i>
+                                    </td>
+                                </tr>
+                                <tr *ngIf="nodata.length>0">
+                                    <td colspan="11">{{nodata}}</td>
+                                </tr>
+                                <tr *ngIf="loging">
+                                    <td colspan="11">
+                                        <div class="text-center ptb-50">
+                                            <img src="/assets/image/loading/spinner1tr@2x.gif" alt="aeromus.com"/>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+
+
+
+                        <!-- <div *ngFor="let data of produc; index as i;">
+                            {{"\<url>"}}
+                            <br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;{{"\<loc>https://www.medlyfechemist.com/product/"+data.axClass+"\</loc>"}}
+                            <br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;{{"\<priority>0.9\</priority>"}}
+                            <br>
+                            {{"\</url>"}}
+                        </div> -->
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

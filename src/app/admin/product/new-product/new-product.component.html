@@ -1,0 +1,151 @@
+<app-header></app-header>
+<aside class="sidebar sidebar-left sidebar-menu">
+    <app-admin-menu></app-admin-menu>
+</aside>
+
+<section id="main" role="main">
+    <div class="container-fluid">
+        <div class="page-header page-header-block mb0">
+            <div class="page-header-section">
+                <h4 class="title semibold text-capitalize">New Product</h4>
+                <a href="product/" target="_blank">product</a>
+            </div>
+            <div class="page-header-section">
+                <div class="toolbar">
+                    <ol class="breadcrumb breadcrumb-transparent nm">
+                        <li><a routerLink="/">Dashboards</a></li>
+                        <li class="active">New Product</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+
+        
+        <div class="alert alert-dismissable mt10"  [class.ar-none]="sucs==null?true:false" [class.alert-success]="sucs==true?true:false"  [class.alert-danger]="sucs==false?true:false">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+            {{message}}
+            <strong><a routerLink="/products">View Products</a></strong>
+        </div>
+
+        <div class="row" [formGroup]="job">
+            <div class="col-md-12">
+                <h3>Basic Details:</h3>
+            </div>
+            
+            <div class="col-sm-4"> 
+                <label>Product Title <span class="error">*</span></label>
+                <input type="text" class="form-control" placeholder="Product Title" [(ngModel)]="uprod.name" formControlName="name"/>
+            </div>
+            <div class="col-sm-2"> 
+                <label>Category <span class="error">*</span></label>
+                <select (change)="selectcat($event)" class="form-control" [(ngModel)]="uprod.categories" formControlName="categories">
+                    <option value="">Select Category</option>
+                    <option>Diabetes Medicine</option>
+                    <option>Antiviral Medicine</option>
+                    <option>Cancer Medicine</option>
+                    <option>Erectile Dysfunction</option>
+                    <option>Viagra</option>
+                    <option>Allergy</option>
+                    <option>Antibiotic Medicine</option>
+                    <option>Pain Relief</option>
+                    <option>HCG</option>
+                    <option>Hair Loss</option>
+                    <option>Migraine Medicine</option>
+                    <option>Eyecare Medicine</option>
+                    <option>Asthma Medicine</option>
+                    <option>Gastro Medicine</option>
+                    <option>Heart and Blood Pressure</option>
+                    <option>Weight Loss Medicines</option>
+                    <option>Birth Control medicine</option>
+                    <option>HIV Medicine</option>
+                    <option>Kidney Medicine</option>
+                    <option>Cialis</option>
+                    <option>LEVITRA</option>
+                    <option>Men Health</option>
+                    <option>Women Health</option>
+                    <option>Other medicine</option>   
+                    <option>Alzheimer's medicine</option>
+                    <option>Antiparkinsonian Medicine</option>
+                    <option>Antifungal medicine</option>
+                    <option>Kamagra</option>
+                    <option>Cenforce</option>
+                    <option>Vidalista</option>
+                    <option>Sildenafil</option>
+                </select>
+            </div>
+            
+            <div class="col-sm-2"> 
+                <label>Sell Price <span class="error">*</span></label>
+                <input (keypress)="orgnigation.numberOnly($event)" type="text" class="form-control" placeholder="Sell Price" name="cost" [(ngModel)]="uprod.salePrice" formControlName="salePrice"/>
+            </div>
+            <div class="col-sm-2"> 
+                <label>Regular Price</label>
+                <input (keypress)="orgnigation.numberOnly($event)" type="text" class="form-control" placeholder="Regular Price" name="discountprice" [(ngModel)]="uprod.regularPrice" formControlName="regularPrice"/>
+            </div>
+            <div class="col-sm-2"> 
+                <label>Quantity <span class="error">*</span></label>
+                <input type="text" class="form-control" placeholder="Quantity" name="stock" [(ngModel)]="uprod.pills" formControlName="pills"/>
+            </div>
+            
+            <div class="col-sm-12"> 
+                <label>Short Description <span class="error">*</span></label>
+                <angular-editor formControlName="shortDescription" [(ngModel)]="uprod.shortDescription" [config]="editorConfig" [placeholder]="'Enter full discription...'"></angular-editor>
+            </div>
+
+            <div class="col-sm-12"> 
+                <label class="mt10">Full Description</label>
+                <angular-editor formControlName="description" [(ngModel)]="uprod.description" [config]="editorConfig" [placeholder]="'Enter full discription...'"></angular-editor>
+            </div>
+            <div *ngIf="tags.length!=0" class="col-sm-12"> 
+                <label class="mt10">Tags</label>
+                <div class="ar-bordert">
+                    <div class="ar-tag" *ngFor="let item of tags; index as i;">
+                        <label><input class="form-check-input;" [checked]="item.status" (change)="checkcng(i)" type="checkbox"/>{{item.name}}</label>
+                    </div>
+                    <div class="ar-clear"></div>
+                </div>
+            </div>
+
+            <div class="col-sm-12"> 
+                <div class="row"  *ngFor="let data of prod;index as i;">
+                    <div class="col-sm-12 pl-10"> 
+                        <label class="mt-10">Product Images <span class="error">*</span></label>
+                        <div class="multiupload">
+                            <label for="uploadFile{{i}}">
+                                <img src="/assets/image/unnamed.png"/><br>
+                                <p>Choose Image to Upload</p>
+                            </label>
+                        </div>
+                        <input (change)="onselectfile($event,i)" class="d-none" id="uploadFile{{i}}" type="file" multiple/>
+                    </div>
+                    <div class="col-sm-12"></div>
+                    <div class="col-sm-2 mt10 pt-20" *ngFor="let data of prod[i].image;index as k;"> 
+                        <div class="arclose" (click)="cosephoto(k,i)"><em class="ico-close3"></em></div>
+                        <img style="width: 100%;" [src]="data" />
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12"> 
+                <h3>SEO Managment:</h3>
+            </div>
+            <div class="col-sm-4"> 
+                <label>Page Title </label>
+                <input type="text" class="form-control" placeholder="Product Title" [(ngModel)]="uprod.title" formControlName="title"/>
+            </div>
+            <div class="col-sm-8"> 
+                <label>Page Keywords </label>
+                <input type="text" class="form-control" placeholder="Product keyword" [(ngModel)]="uprod.keyword" formControlName="keyword"/>
+            </div>
+            <div class="col-sm-12">
+                <label>Page Description </label>
+                <textarea class="form-control" rows="5" placeholder="Product Description" [(ngModel)]="uprod.discription" formControlName="discription"></textarea>
+            </div>
+
+            
+            <div class="col-sm-12 mt10"> 
+                <button (click)="saveproduct()" class="btn btn-success">{{btn}}</button><br><br><br><br><br>
+            </div>
+
+        </div>
+    </div>
+</section>

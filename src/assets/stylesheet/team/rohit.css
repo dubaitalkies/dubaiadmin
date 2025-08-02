@@ -1,0 +1,53 @@
+/*  use Prifix "rh-" */
+
+.text-magenta {color: #8e24aa;}
+.text-martini {color: #bcaaa4;}
+.text-orange {color: #ffa001;}
+.text-orange-red {color: #ff0000;}
+.text-dodger-blue {color: #2196f3;}
+.text-mute-low {color: #a8a8a8;}
+.text-light-sea-green {color: #1cbbb4;}
+.text-blue {color: #3f7afc;}
+.ar-black{color: black;}
+.ar-red{color: red;}
+.ar-green{color: green;}
+.ar-blue{color: blue;}
+.rh-bg{background-color: teal !important;}
+.rh-absolute{position: absolute;}
+.rh-white{color: #ffffff;}
+.rh-blue{color: #3e1bdb;}
+.rh-bordertop{border-top: solid 1px #120450 !important;}
+
+
+.idcard{width: 500px;height:310px;background-color: rgb(241, 236, 236);border-radius: 15px;margin: 5px;overflow: hidden;position: relative;float: left;}
+.rh-idcontainer{margin: 10px;position: relative;}
+
+.idcard .rh-header{width:100% ;height: 80px;background-color: rgb(3, 3, 61);border-top-left-radius: 10px;border-top-right-radius: 10px;}
+.idcard .rh-header .rh-idcrdlogo{width: 23%;height: 80px;float: left;text-align: center;}
+.idcard .rh-header .rh-idcrdlogo .rh-logoicon{width: 70px;height: 70px;margin: 0 auto;overflow: hidden;margin-top: 5px;border-radius: 50%;}
+.idcard .rh-header .rh-idcrdlogo img{width: 72px;height: 72px;margin: -1px;}
+.idcard .rh-header .rh-idcardhead{width: 77%;height: 80px;float: left;color: #ffffff;text-align: center;}
+.idcard .rh-header .rh-idcardhead h4{font-size: 17px;margin: 0;margin-top: 8px;}
+.idcard .rh-header .rh-idcardhead h2{font-size: 21px;margin: 3px;margin-top: 15px;text-transform: capitalize;}
+.idcard .rh-header .rh-idcardhead h3{font-size: 15px;margin: 3px;}
+
+.rh-sessen{margin: 0;text-align: center;height: 30px;line-height: 30px;font-weight: bold;}
+
+.idcard .rh-container{width:100% ;height: 150px;overflow: hidden;}
+.idcard .rh-container .rh-leftcontainer{width: 70%;min-height: 140px;float: left;}
+.idcard .rh-container .rh-leftcontainer table{margin: 20px;margin-top: 0;}
+.idcard .rh-container .rh-leftcontainer th{text-align: left;width: 90px;}
+.idcard .rh-container .rh-leftcontainer td{padding-left: 10px;}
+
+
+.idcard .rh-container .rh-rightcontainer{width: 30%;min-height: 140px;float: left;text-align: center;}
+.idcard .rh-container .rh-rightcontainer .rh-profic{width: 107px;height: 120px;margin-top: 10px;overflow: hidden;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);}
+.idcard .rh-container .rh-rightcontainer img{width: 109px;margin: -1px;}
+
+.idcard .rh-footer{width:100% ;height: 50px;}
+.idcard .rh-footer ul{list-style: none;height: 50px;margin: 0;padding: 0;}
+.idcard .rh-footer ul li{float: left;}
+.idcard .rh-footer ul li:first-child{width: 62%;}
+.idcard .rh-footer ul li:first-child p{margin: 0;margin-left: 20px;font-size: 10px;color: firebrick;}
+.idcard .rh-footer ul li:nth-child(2),.idcard .rh-footer ul li:nth-child(3){width: 19%;text-align: center;height: 25px;padding-top:15px}
+

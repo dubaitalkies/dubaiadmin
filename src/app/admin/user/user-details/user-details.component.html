@@ -1,0 +1,69 @@
+<app-header></app-header>
+<aside class="sidebar sidebar-left sidebar-menu">
+    <app-admin-menu></app-admin-menu>
+</aside>
+
+<section id="main" role="main">
+    <div class="container-fluid">
+        <div class="page-header page-header-block mb0">
+            <div class="page-header-section">
+                <h4 class="title semibold text-capitalize">User Details</h4>
+            </div>
+            <div class="page-header-section">
+                <div class="toolbar">
+                    <ol class="breadcrumb breadcrumb-transparent nm">
+                        <li><a routerLink="/">Dashboards</a></li>
+                        <li class="active">Details</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+
+        
+        <div class="alert alert-dismissable mt10"  [class.ar-none]="sucs==null?true:false" [class.alert-success]="sucs==true?true:false"  [class.alert-danger]="sucs==false?true:false">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+            {{message}}
+            <strong><a routerLink="/member">View Users</a></strong>
+        </div>
+
+        
+        <div class="row">            
+            <div class="col-sm-4 pt-10"> 
+                <label>User Name <span class="error">*</span></label>
+                <input type="text" class="form-control" placeholder="Product Title" [(ngModel)]="userdata.name"/>
+            </div>    
+            <div class="col-sm-4 pt-10"> 
+                <label>Contact <span class="error">*</span></label>
+                <input type="text" class="form-control" placeholder="Product Title" [(ngModel)]="userdata.contact"/>
+            </div>    
+            <div class="col-sm-4 pt-10"> 
+                <label>Email <span class="error">*</span></label>
+                <input type="text" class="form-control" placeholder="Product Title" [(ngModel)]="userdata.email"/>
+            </div>    
+            <div class="col-sm-4 pt-10"> 
+                <label>Address <span class="error">*</span></label>
+                <input type="text" class="form-control" placeholder="Product Title" [(ngModel)]="userdata.address"/>
+            </div>    
+            <div class="col-sm-4 pt-10"> 
+                <label>City <span class="error">*</span></label>
+                <input type="text" class="form-control" placeholder="Product Title" [(ngModel)]="userdata.city"/>
+            </div>    
+            <div class="col-sm-4 pt-10"> 
+                <label>State <span class="error">*</span></label>
+                <input type="text" class="form-control" placeholder="Product Title" [(ngModel)]="userdata.state"/>
+            </div>   
+            <div class="col-sm-4 pt-10"> 
+                <label>PIN Code <span class="error">*</span></label>
+                <input type="text" class="form-control" placeholder="Product Title" [(ngModel)]="userdata.pin"/>
+            </div>
+
+            
+            <div class="col-sm-12 mt10"> 
+                <button (click)="saveproduct()" class="btn btn-success">Update User</button><br><br><br><br><br>
+            </div>
+
+        </div>
+
+
+    </div>
+</section>

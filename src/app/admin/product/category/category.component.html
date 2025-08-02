@@ -1,0 +1,68 @@
+<app-header></app-header>
+<aside class="sidebar sidebar-left sidebar-menu">
+    <app-admin-menu></app-admin-menu>
+</aside>
+
+<section id="main" role="main">
+    <div class="container-fluid">
+        <div class="page-header page-header-block mb0">
+            <div class="page-header-section">
+                <h4 class="title semibold text-capitalize">New Category</h4>
+            </div>
+            <div class="page-header-section">
+                <div class="toolbar">
+                    <ol class="breadcrumb breadcrumb-transparent nm">
+                        <li><a routerLink="/">Dashboards</a></li>
+                        <li class="active">New Category</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+
+        <div class="alert alert-dismissable mt10"  [class.ar-none]="sucs==null?true:false" [class.alert-success]="sucs==true?true:false"  [class.alert-danger]="sucs==false?true:false">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+            {{message}}
+            <strong><a routerLink="/category-list">View Category</a></strong>
+        </div>
+
+        <div class="row" [formGroup]="job">
+            <div class="col-md-12">
+                <h3>Basic Details:</h3>
+            </div>
+            
+            <div class="col-sm-8"> 
+                <label>Category <span class="error">*</span></label>
+                <input type="text" (keyup)="onKey($event)" class="form-control" placeholder="Category Name" [(ngModel)]="uprod.title" formControlName="title"/>
+            </div>     
+            <div class="col-sm-4"> 
+                <label>Slug</label>
+                <input type="text" class="form-control" placeholder="Category Name" [(ngModel)]="uprod.slug" formControlName="slug"/>
+            </div>  
+            <div class="col-sm-12"> 
+                <label class="mt10">Description</label>
+                <angular-editor formControlName="description" [(ngModel)]="uprod.description" [config]="editorConfig" [placeholder]="'Enter full discription...'"></angular-editor>
+            </div>
+
+            <div class="col-sm-12"> 
+                <h3>SEO Managment:</h3>
+            </div>
+            <div class="col-sm-4"> 
+                <label>Page Title </label>
+                <input type="text" class="form-control" placeholder="Category Title" [(ngModel)]="uprod.pagetitle" formControlName="pagetitle"/>
+            </div>
+            <div class="col-sm-8"> 
+                <label>Page Keywords </label>
+                <input type="text" class="form-control" placeholder="Category keyword" [(ngModel)]="uprod.keyword" formControlName="keyword"/>
+            </div>
+            <div class="col-sm-12">
+                <label>Page Description </label>
+                <textarea class="form-control" rows="5" placeholder="Category Description" [(ngModel)]="uprod.discription" formControlName="discription"></textarea>
+            </div>
+
+            
+            <div class="col-sm-12 mt10"> 
+                <button (click)="saveproduct()" class="btn btn-success">{{btn}}</button><br><br><br><br><br>
+            </div>
+        </div>
+    </div>
+</section>

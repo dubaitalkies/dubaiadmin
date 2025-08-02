@@ -1,0 +1,230 @@
+<app-header></app-header>
+<aside class="sidebar sidebar-left sidebar-menu">
+    <app-admin-menu></app-admin-menu>
+</aside>
+
+
+<section id="main" role="main">
+    <div class="container-fluid">
+        <div class="page-header page-header-block mb0">
+            <div class="page-header-section">
+                <h4 class="title semibold text-capitalize">Booking details</h4>
+            </div>
+            <div class="page-header-section">
+                <div class="toolbar">
+                    <ol class="breadcrumb breadcrumb-transparent nm">
+                        <li><a routerLink="/">Dashboards</a></li>
+                        <li class="active">Booking details</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+
+        
+        <div class="alert alert-dismissable mt10"  [class.ar-none]="sucs==null?true:false" [class.alert-success]="sucs==true?true:false"  [class.alert-danger]="sucs==false?true:false">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+            {{message}}
+            <strong><a routerLink="/booking/processing">View Booking</a></strong>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <h3>Order #{{product.bookingid}} details</h3>
+            </div>
+            <div class="col-md-9 mb-100">
+                <div class="col-sm-4">
+                    <label class="mt10"> Customer Name</label>
+                    <p>{{product.userid.split('!')[0]}}</p>
+                    <!-- <input type="text" class="form-control" [value]="product.userid.split('!')[0]" readonly /> -->
+                </div>
+                <div class="col-sm-4">
+                    <label class="mt10">Contact</label>
+                    <p>{{product.userid.split('!')[1]}}</p>
+                    <!-- <input type="text" class="form-control" [value]="product.userid.split('!')[1]" readonly /> -->
+                </div>
+                <div class="col-sm-4">
+                    <label class="mt10">E-Mail</label>
+                    <p>{{product.userid.split('!')[4]}}</p>
+                    <!-- <input type="text" class="form-control" [value]="product.userid.split('!')[4]" readonly /> -->
+                </div>
+
+                
+                <div class="col-sm-4">
+                    <label class="mt10">Booking Date:</label>
+                    <p>{{product.orderdate | date:'dd-MM-yyyy hh:mm aa'}}</p>
+                </div>
+                <div class="col-sm-4">
+                    <label class="mt10">Payment Mode</label>
+                    <p>{{product.paymentMode.split('!!')[0]}}</p>
+                    <table *ngIf="product.paymentMode.includes('!!')">
+                        <tr>
+                            <td><strong>Bank Name:- </strong></td>
+                            <td>{{product.paymentMode.split('!!')[1]}}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Routing Number:- </strong></td>
+                            <td>{{product.paymentMode.split('!!')[2]}}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Account Number:- </strong></td>
+                            <td>{{product.paymentMode.split('!!')[3]}}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Check Number:- </strong></td>
+                            <td>{{product.paymentMode.split('!!')[4]}}</td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="col-sm-4">
+                    <label class="mt10">Quantity</label>
+                    <p>{{product.quantity | number}}</p>
+                </div>
+
+
+                <div class="plr-20 mb20">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h4>Billing details</h4>
+                            <table>
+                                <tr>
+                                    <th>Name:</th>
+                                    <td>{{product.userid.split("!")[0]}}</td>
+                                </tr>
+                                <tr>
+                                    <th>Address:</th>
+                                    <td>{{product.addressid.split("!")[0]}}</td>
+                                </tr>
+                                <tr>
+                                    <th>City:</th>
+                                    <td>{{product.addressid.split("!")[1]}}</td>
+                                </tr>
+                                <tr>
+                                    <th>State:</th>
+                                    <td>{{product.addressid.split("!")[2]}}</td>
+                                </tr>
+                                <tr>
+                                    <th>Pin:</th>
+                                    <td>{{product.addressid.split("!")[3]}}</td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="col-md-6">
+                            <h4>Shipping details</h4>
+                            <table>
+                                <tr>
+                                    <th>Name:</th>
+                                    <td>{{product.userid.split("!")[0]}}</td>
+                                </tr>
+                                <tr>
+                                    <th>Address:</th>
+                                    <td>{{product.addressid.split("!")[0]}}</td>
+                                </tr>
+                                <tr>
+                                    <th>City:</th>
+                                    <td>{{product.addressid.split("!")[1]}}</td>
+                                </tr>
+                                <tr>
+                                    <th>State:</th>
+                                    <td>{{product.addressid.split("!")[2]}}</td>
+                                </tr>
+                                <tr>
+                                    <th>Pin:</th>
+                                    <td>{{product.addressid.split("!")[3]}}</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="table-responsive panel-collapse pull out">
+                    <table class="table table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th>Image</th>
+                                <th>Product</th> 
+                                <th class="aewidth150 text-center">Quantity</th> 
+                                <th class="aewidth100">Amount</th>
+                            </tr>
+                        </thead>
+                        <tbody runat="server" id="datatable" class="datatable">
+                            <tr *ngFor="let data of orderlist; index as i;">
+                                <td class="text-center"><img  class="aewidth100" src="{{data.image}}" alt=""></td>
+                                <td>
+                                    {{data.productid.split("!")[0]}}<br>
+                                    <strong>Quantity</strong>: {{data.productid.split("!")[2]}}
+                                </td>
+                                <td class="text-center">{{data.quantity}}</td> 
+                                <td>$ {{(data.amount*1).toFixed(2)}}</td>
+                            </tr>
+                            <tr>
+                                <td colspan="2"></td>
+                                <td><strong>Sub Total</strong></td>
+                                <td>$ {{subtotal.toFixed(2)}}</td>
+                            </tr>
+                            <tr>
+                                <td colspan="2"></td>
+                                <td><strong>Shipping</strong></td>
+                                <td>$ {{(product.shipping*1).toFixed(2)}}</td>
+                            </tr>
+                            <tr>
+                                <td colspan="2"></td>
+                                <td><strong>Total Amount</strong></td>
+                                <td>$ {{totalamnt.toFixed(2)}}</td>
+                            </tr>
+                            <tr *ngIf="loader">
+                                <td colspan="4">
+                                    <div class="text-center ptb-50">
+                                        <img src="/assets/image/loading/spinner1tr@2x.gif" alt="aeromus.com"/>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                        <!-- <tfoot>
+                            <tr>
+                                <td colspan="3">
+                                    <label class="text-danger">45646 by cash and handover vehicle to customer.</label>
+                                </td>
+                            </tr>
+                        </tfoot> -->
+                    </table>
+                </div>
+
+
+
+
+                
+                
+            </div>
+            <div class="col-md-3"><br>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <label class="mt10">Booking Status</label>
+                        <select class="form-control" [(ngModel)]="product.status" [value]="product.status">
+                            <option>Processing</option>
+                            <option>Completed</option>
+                            <option>Cancelled</option>
+                            <option>Refunded</option>
+                            <option>Failed</option>
+                        </select>
+                    </div>
+                    <div class="col-sm-12">
+                        <label class="mt10">Delivery Status</label>
+                        <select class="form-control" [(ngModel)]="product.deleveryStatus" [value]="product.deleveryStatus">
+                            <option>Order has been placed</option>
+                            <option>Processed / Packed</option>
+                            <option>Pick up by courier partner</option>
+                            <option>Shipped</option>
+                            <option>Out For Delivery</option>
+                            <option>Delivered</option>
+                        </select>
+                    </div>  
+                    <div class="col-sm-12"></div>
+                    <div class="col-sm-4">
+                        <button (click)="update()"  type="button" class="btn btn-danger mt10"><i class="ico-fire22"></i> Update</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+

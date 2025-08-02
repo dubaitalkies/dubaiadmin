@@ -1,0 +1,95 @@
+<app-header></app-header>
+<aside class="sidebar sidebar-left sidebar-menu">
+    <app-admin-menu></app-admin-menu>
+</aside>
+
+
+<section id="main" role="main">
+    <div class="container-fluid">
+        <div class="page-header page-header-block mb0">
+            <div class="page-header-section">
+                <div class="row">
+                    <div class="col-md-3">
+                        <h4 class="title semibold text-capitalize">Blog</h4>
+                    </div>
+                    <div class="col-md-4">
+                        
+                    </div>
+                </div>
+            </div>
+            <div class="page-header-section">
+                <div class="toolbar">
+                    <button routerLink="/add-blog" type="button" class="btn btn-danger mb5"><i class="ico-fire22"></i> Add new Blog</button>
+                </div>
+            </div>
+        </div>
+        
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel-body ar-bbtm" >
+                    <div class="row">
+                        <div class="col-md-3 pl0">
+
+                        </div>
+                        <div class="col-md-7"></div>
+                        <div class="col-md-2 text-right pr0">
+                            
+                        </div>
+                    </div>
+                </div>
+                <div class="panel panel-default">
+                    <div class="table-responsive panel-collapse pull out">
+                        <table class="table table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th class="num">#</th> 
+                                    <th class="text-center aewidth150">Thumbnil</th> 
+                                    <th>Title</th> 
+                                    <th class="text-center aewidth150">Date</th>
+                                    <th class="text-center aewidth100">Status</th>
+                                    <th class="text-center aewidth100">Update</th>
+                                </tr>
+                            </thead>
+                            <tbody runat="server" id="datatable" class="datatable">
+                                <tr [class.success]="data.status=='Accepted'?true:false" [class.danger]="data.sts=='0'?true:false"  *ngFor="let data of blog; index as i;">
+                                    <th class="num">{{ i+1 }}</th> 
+                                    <td>
+                                        <div class="aerprofile">
+                                            <a target="_blank" href="https://www.dubaitalkies.com/{{data.url}}">
+                                                <img class="img-bordered" src="{{data.images}}" alt="" height="60px">
+                                            </a>
+                                        </div>
+                                    </td>
+                                    <td><a target="_blank" href="https://www.dubaitalkies.com/{{data.url}}">{{data.blogTitle}}</a> </td> 
+                                    <td class="text-center">{{data.date | date:'dd-MM-yyyy'}}</td>
+                                    <td class="text-center">
+                                        <label class="switch switch-success">
+                                            <input type="checkbox" (change)="updateCrs(i)"  [checked]="data.sts" [(ngModel)]="data.sts">
+                                            <span class="switch"></span>
+                                        </label>
+                                    </td>
+                                    <td class="text-center">
+                                        <i (click)="updateBlog(i)" routerLink="/update-blog/{{data.url}}" class="ico-pencil3 ar-pointer ar-blue mr5" title="Edit"></i>
+                                        <i (click)="delete(data.id)" class="ico-trash ar-pointer ar-red" title="Delete"></i>
+                                    </td>
+                                </tr>
+                                <tr *ngIf="nodata.length>0">
+                                    <td colspan="11">{{nodata}}</td>
+                                </tr>
+                                <tr *ngIf="loader">
+                                    <td colspan="11">
+                                        <div class="text-center ptb-50">
+                                            <img src="/assets/image/loading/spinner1tr@2x.gif" alt="aeromus.com"/>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,153 @@
+<section class="content slimscroll">
+    <ul class="topmenu topmenu-responsive" data-toggle="menu">
+        <li class="active">
+            <a routerLink="/" data-target="#dashboard" data-parent=".topmenu">
+                <span class="figure"><i class="ico-home2"></i></span>
+                <span class="text">Dashboard</span>
+            </a>
+        </li>
+        
+        <li >
+            <a href="javascript:void(0);" data-toggle="submenu" data-target="#layout" data-parent=".topmenu">
+                <span class="figure"><i class="ico-stack3"></i></span>
+                <span class="text">Order</span>
+                <span class="arrow"></span>
+            </a>
+            <ul id="layout" class="submenu collapse ">
+                <li >
+                    <a routerLink="/booking/processing" data-parent=".topmenu">
+                        <span class="text">Pending Order</span>
+                    </a>
+                </li>
+                <li>
+                    <a routerLink="/booking/completed" data-parent=".topmenu">
+                        <span class="text">Completed Order</span>
+                    </a>
+                </li>
+                <li>
+                    <a routerLink="/booking/cancelled" data-parent=".topmenu">
+                        <span class="text">Cancelled Order</span>
+                    </a>
+                </li>
+                <li>
+                    <a routerLink="/booking/refunded" data-parent=".topmenu">
+                        <span class="text">Refunded Order</span>
+                    </a>
+                </li>
+                <li>
+                    <a routerLink="/booking/failed" data-parent=".topmenu">
+                        <span class="text">Failed Order</span>
+                    </a>
+                </li>
+            </ul>
+        </li>
+        <li >
+            <a href="javascript:void(0);" data-toggle="submenu" data-target="#franchise" data-parent=".topmenu">
+                <span class="figure"><i class="ico-address-book"></i></span>
+                <span class="text">Products</span>
+                <span class="arrow"></span>
+            </a>
+            <ul id="franchise" class="submenu collapse ">
+                <li >
+                    <a routerLink="/add-products" data-parent=".topmenu">
+                        <span class="text">New Product</span>
+                    </a>
+                </li>
+                <li >
+                    <a routerLink="/products" data-parent=".topmenu">
+                        <span class="text">Self Products</span>
+                    </a>
+                </li>
+                <li >
+                    <a routerLink="/vendor-products" data-parent=".topmenu">
+                        <span class="text">Vendor Products</span>
+                    </a>
+                </li>
+            </ul>
+        </li>
+
+        <li>
+            <a href="javascript:void(0);" data-toggle="submenu" data-target="#blog" data-parent=".topmenu">
+                <span class="figure"><i class="ico-address-book"></i></span>
+                <span class="text">Blog</span>
+                <span class="arrow"></span>
+            </a>
+            <ul id="blog" class="submenu collapse ">
+                <li >
+                    <a routerLink="/add-blog" data-parent=".topmenu">
+                        <span class="text">New Blog</span>
+                    </a>
+                </li>
+                <li >
+                    <a routerLink="/blog" data-parent=".topmenu">
+                        <span class="text">Blog</span>
+                    </a>
+                </li>
+            </ul>
+        </li>
+        <li>
+            <a routerLink="/booking-laser">
+                <span class="figure"><i class="ico-notebook"></i></span>
+                <span class="text">Transaction Laser</span>
+            </a>
+        </li>
+        <li>
+            <a routerLink="/buy-sell">
+                <span class="figure"><i class="ico-map"></i></span>
+                <span class="text">Buy & Sell</span>
+            </a>
+        </li>
+        <li>
+            <a routerLink="/vendor-vehicle/vendor/ambulance">
+                <span class="figure"><i class="ico-picture"></i></span>
+                <span class="text">Ambulance</span>
+            </a>
+        </li>
+        <li>
+            <a routerLink="/new-user">
+                <span class="figure"><i class="ico-file-text"></i></span>
+                <span class="text">New User</span>
+            </a>
+        </li>
+        <li>
+            <a routerLink="/user/active">
+                <span class="figure"><i class="ico-notebook"></i></span>
+                <span class="text">Active User</span>
+            </a>
+        </li>
+        <li>
+            <a routerLink="/user/pending">
+                <span class="figure"><i class="ico-file-text"></i></span>
+                <span class="text">Pending User</span>
+            </a>
+        </li>
+        <li>
+            <a routerLink="/old-user">
+                <span class="figure"><i class="ico-file-text"></i></span>
+                <span class="text">Old Users</span>
+            </a>
+        </li>
+        <li>
+            <a routerLink="/location">
+                <span class="figure"><i class="ico-crop"></i></span>
+                <span class="text">Location</span>
+            </a>
+        </li>
+        <li>
+            <a routerLink="/admission/pending">
+                <span class="figure"><i class="ico-lightning"></i></span>
+                <span class="text">Pick & Drop</span>
+                <!-- <span class="number"><span class="label label-danger">7</span></span> -->
+            </a>
+        </li>
+    </ul>
+    <div class="text-center">
+        <!-- <ng-adsense
+            [adClient]="'ca-pub-5211687155804948'"
+            [adSlot]="4445546890"
+            [display]="'inline-block'"
+            [width]="230"
+            [height]="700">
+        </ng-adsense> -->
+    </div>
+</section>

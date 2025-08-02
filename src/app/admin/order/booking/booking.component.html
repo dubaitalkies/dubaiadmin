@@ -1,0 +1,207 @@
+<app-header></app-header>
+<aside class="sidebar sidebar-left sidebar-menu">
+    <app-admin-menu></app-admin-menu>
+</aside>
+
+<section id="main" role="main">
+    <div class="container-fluid">
+        <div class="page-header page-header-block mb0">
+            <div class="page-header-section">
+                <h4 class="title semibold text-capitalize">{{type}} Booking</h4>
+            </div>
+            <div class="page-header-section">
+                <div class="toolbar">
+                    <ol class="breadcrumb breadcrumb-transparent nm">
+                        <li><a routerLink="/">Dashboards</a></li>
+                        <li class="active">Booking</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12 mt10">
+                <div class="panel panel-default">
+                    <div class="table-responsive panel-collapse pull out">
+                        <table class="table table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th class="num">#</th> 
+                                    <th>Image</th> 
+                                    <th>Name</th> 
+                                    <th>Contact</th> 
+                                    <th>E-Mail</th> 
+                                    <th>Product</th>
+                                    <th>Amount</th> 
+                                    <th class="text-center">Quantity</th> 
+                                    <th>Order Status</th> 
+                                    <th class="text-center">Date</th> 
+                                    <th class="text-center">Status</th>
+                                    <th class="aewidth100"></th>
+                                </tr>
+                            </thead>
+                            
+                            <tbody runat="server" id="datatable" class="datatable">
+                                <tr *ngFor="let data of user; index as i;">
+                                    <th class="num">{{ i+1 }}</th> 
+                                    <td><img class="aewidth100" src="{{ data.image }}" alt=""></td>
+                                    <td><a routerLink="/update-user/{{ orgnigation.splited(data.userid,2)}}">{{ orgnigation.splited(data.userid,0)}}</a></td> 
+                                    <td>{{ orgnigation.splited(data.userid,1)}}</td> 
+                                    <td>{{ orgnigation.splited(data.userid,4)}}</td> 
+                                    <td>{{ orgnigation.splited(data.productid,0) }}</td>
+                                    <td>${{ ( ((data.quantity*1) * (data.amount*1)) + (data.shipping*1)).toFixed(2)}}</td>
+                                    <td class="text-center">{{ data.quantity | number }}</td>
+                                    <td class="aewidth150">
+                                        <strong class="text-danger">{{ data.paymentMode.split('!!')[0] }}</strong><br>
+                                        <strong class="text-success">{{ data.paymentStatus }}</strong><br>
+                                        <small>{{ data.deleveryStatus }}</small>
+                                    </td>
+                                    <td class="text-center">{{ data.orderdate| date:'dd-MM-yyyy hh:mm aa' }}</td> 
+                                    <td class="text-center">
+                                        <span class="label ar-pointer" [class.label-warning]="data.status=='Processing'" [class.label-success]="data.status=='Completed'" [class.label-danger]="data.status=='Cancel'">{{ data.status }}</span>
+                                    </td> 
+                                    <td class="text-center">
+                                        <i (click)="view(i)" data-toggle="modal" data-target="#myModal" class="ico-eye text-danger ar-pointer mr5" title="View"></i>
+                                        <i (click)="edite(i)" class="ico-edit text-success ar-pointer mr5" title="Edit"></i>
+                                    </td>
+                                </tr>
+                                <tr [class.d-none]="nodata.length==0?true:false">
+                                    <td colspan="11">{{nodata}}</td>
+                                </tr>
+                                <tr *ngIf="loging">
+                                    <td colspan="11">
+                                        <div class="text-center ptb-50">
+                                            <img src="/assets/image/loading/spinner1tr@2x.gif" alt="aeromus.com"/>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div id="myModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button #closeAddExpenseModal type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                        <h5 class="modal-title" id="myModalLabel">ORDER: #{{curntOrder.bookingid}}</h5>
+                    </div>
+                    <div class="modal-body">
+                        <div class="panel panel-default">
+                            <div class="plr-10">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <h4>Billing details</h4>
+                                        <table>
+                                            <tr>
+                                                <th>Name:</th>
+                                                <td>{{curntOrder.userid.split("!")[0]}}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Address:</th>
+                                                <td>{{curntOrder.addressid.split("!")[0]}}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>City:</th>
+                                                <td>{{curntOrder.addressid.split("!")[1]}}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>State:</th>
+                                                <td>{{curntOrder.addressid.split("!")[2]}}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Pin:</th>
+                                                <td>{{curntOrder.addressid.split("!")[3]}}</td>
+                                            </tr>
+                                        </table>
+                                        <h5><strong>E-Mail Address</strong></h5>
+                                        <p>{{curntOrder.userid.split("!")[4]}}</p>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <h4>Shipping details</h4>
+                                        <table>
+                                            <tr>
+                                                <th>Name:</th>
+                                                <td>{{curntOrder.userid.split("!")[0]}}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Address:</th>
+                                                <td>{{curntOrder.addressid.split("!")[0]}}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>City:</th>
+                                                <td>{{curntOrder.addressid.split("!")[1]}}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>State:</th>
+                                                <td>{{curntOrder.addressid.split("!")[2]}}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Pin:</th>
+                                                <td>{{curntOrder.addressid.split("!")[3]}}</td>
+                                            </tr>
+                                        </table>
+                                        <h5><strong>Contact Number</strong></h5>
+                                        <p>{{curntOrder.userid.split("!")[1]}}</p>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="table-responsive panel-collapse pull out">
+                                <table class="table table-bordered table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>Product</th> 
+                                            <th class="aewidth100 text-center">Quantity</th> 
+                                            <th class="aewidth100">Amount</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody runat="server" id="datatable" class="datatable">
+                                        <tr *ngFor="let data of orderlist; index as i;">
+                                            <td>
+                                                {{data.productid.split("!")[0]}}<br>
+                                                <strong>Quantity</strong>: {{data.productid.split("!")[2]}}
+                                            </td>
+                                            <td class="text-center">{{data.quantity}}</td> 
+                                            <td>$ {{(data.amount*1).toFixed(2)}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="2"><strong>Shipping</strong></td>
+                                            <td>$ {{(curntOrder.shipping*1).toFixed(2)}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="2"><strong>Total Amount</strong></td>
+                                            <td>$ {{totalamnt.toFixed(2)}}</td>
+                                        </tr>
+                                        <tr *ngIf="loader">
+                                            <td colspan="3">
+                                                <div class="text-center ptb-50">
+                                                    <img src="/assets/image/loading/spinner1tr@2x.gif" alt="aeromus.com"/>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                    <!-- <tfoot>
+                                        <tr>
+                                            <td colspan="3">
+                                                <label class="text-danger">45646 by cash and handover vehicle to customer.</label>
+                                            </td>
+                                        </tr>
+                                    </tfoot> -->
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+    </div>
+</section>

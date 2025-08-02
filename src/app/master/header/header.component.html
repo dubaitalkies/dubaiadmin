@@ -1,0 +1,59 @@
+<header id="header" class="navbar">
+    <div class="navbar-header">
+        <a class="navbar-brand ar-headlogo" routerLink="/">
+            <span class="logo-figure" style="background-image: url('/assets/image/avatar/avatar7.png');"></span>
+            <span class="logo-text">Dubaitalkies</span>
+        </a>
+    </div>
+  
+    <div class="navbar-toolbar clearfix">
+      <ul class="nav navbar-nav navbar-left">
+          <li class="hidden-xs hidden-sm">
+              <a href="javascript:void(0);" class="sidebar-minimize" data-toggle="minimize" title="Minimize sidebar">
+                  <span class="meta">
+                      <span class="icon"></span>
+                  </span>
+              </a>
+          </li>
+          
+          <li class="navbar-main hidden-lg hidden-md hidden-sm">
+              <a href="javascript:void(0);" data-toggle="sidebar" data-direction="ltr" rel="tooltip" title="Menu sidebar">
+                  <span class="meta">
+                      <span class="icon"><i class="ico-paragraph-justify3"></i></span>
+                  </span>
+              </a>
+          </li>
+  
+          <li class="dropdown">
+              <a routerLink="/" class="dropdown-toggle">Admin Dashboard</a>
+          </li>
+          <li style="padding-top: 15px;">
+            <select [disabled]="dropac" class="form-control" (change)="changeEvent()" [(ngModel)]="project">
+                <option value="1">dubaitalkies.com</option>
+            </select>
+          </li>
+        </ul>
+        
+        <div class="navbar-form navbar-left dropdown" id="dropdown-form">
+            <form action="" role="search">
+                <div class="has-icon">
+                    <input type="text" class="form-control" placeholder="Search application...">
+                    <i class="ico-search form-control-icon"></i>
+                </div>
+            </form>
+        </div>
+        <ul class="nav navbar-nav navbar-right">
+            <li class="dropdown profile">
+                <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown">
+                    <span class="meta">
+                        <span class="avatar"><img src="/assets/image/avatar/avatar7.png" class="img-circle" alt="" /></span>
+                        <span class="text hidden-xs hidden-sm pl5">{{ name }}</span>
+                    </span>
+                </a>
+                <ul class="dropdown-menu" role="menu">
+                    <li><a (click)="logout()" href="javascript:void(0);"><span class="icon"><i class="ico-exit"></i></span> Sign Out</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</header>

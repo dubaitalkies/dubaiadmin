@@ -1,0 +1,99 @@
+<app-header></app-header>
+<aside class="sidebar sidebar-left sidebar-menu">
+    <app-admin-menu></app-admin-menu>
+</aside>
+
+<section id="main" role="main">
+    <div class="container-fluid">
+        <div class="page-header page-header-block mb0">
+            <div class="page-header-section">
+                <h4 class="title semibold text-capitalize">All User</h4>
+            </div>
+            <div class="page-header-section">
+                <div class="toolbar">
+                    <button (click)="excelPrint()" type="button" class="btn btn-inverse mr5"><i class="ico-folder-download"></i> Excel</button>
+                    <button printSectionId="recipt" ngxPrint type="button" class="btn btn-primary"><i class="ico-print2"></i> Print</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12 mt10">
+                <div class="panel panel-default">
+                    <div class="table-responsive panel-collapse pull out">
+                        <table class="table table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th class="num">#</th> 
+                                    <th>Userid</th> 
+                                    <th>Name</th> 
+                                    <th>Contact</th> 
+                                    <th>Email</th> 
+                                    <th>City</th> 
+                                    <th class="text-center">Update</th>
+                                </tr>
+                            </thead>
+                            <tbody runat="server" id="datatable" class="datatable">
+                                <tr [class.active]="data.publicationarea=='Public To all students'?true:false" [class.success]="data.status=='Accepted'?true:false" [class.danger]="data.status=='Completed'?true:false"  *ngFor="let data of user; index as i;">
+                                    <th class="num">{{ i+1 }}</th> 
+                                    <td>{{data.userid}}</td>
+                                    <td>{{data.name}}</td> 
+                                    <td>{{data.contact}}</td> 
+                                    <td>{{data.email}}</td>
+                                    <td>{{data.city}}</td>
+                                    <td class="text-center">
+                                        <i (click)="userdata(i)" routerLink="/member-details" class="ico-pencil3 ar-pointer ar-blue mr5" title="Edit"></i>
+                                        <i (click)="delete(data.id)" class="ico-trash ar-pointer ar-red" title="Delete"></i>
+                                    </td>
+                                </tr>
+                                <tr [class.d-none]="nodata.length==0?true:false">
+                                    <td colspan="7">{{nodata}}</td>
+                                </tr>
+                                <tr *ngIf="loging">
+                                    <td colspan="7">
+                                        <div class="text-center ptb-50">
+                                            <img src="/assets/image/loading/spinner1tr@2x.gif" alt="aeromus.com"/>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="row d-none">
+            <div id="recipt" class="col-md-12 mt10">
+                <div class="panel panel-default">
+                    <div class="table-responsive panel-collapse pull out">
+                        <table class="table table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th class="num">#</th> 
+                                    <th>Userid</th> 
+                                    <th>Name</th> 
+                                    <th>Contact</th> 
+                                    <th>Email</th> 
+                                    <th>City</th> 
+                                </tr>
+                            </thead>
+                            <tbody runat="server" id="datatable" class="datatable">
+                                
+                                <tr [class.active]="data.publicationarea=='Public To all students'?true:false" [class.success]="data.status=='Accepted'?true:false" [class.danger]="data.status=='Completed'?true:false"  *ngFor="let data of user; index as i;">
+                                    <th class="num">{{ i+1 }}</th> 
+                                    <td>{{data.userid}}</td>
+                                    <td>{{data.name}}</td> 
+                                    <td>{{data.contact}}</td> 
+                                    <td>{{data.email}}</td>
+                                    <td>{{data.city}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
