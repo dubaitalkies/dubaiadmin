@@ -8,6 +8,7 @@ import { IDropdownSettings } from 'ng-multiselect-dropdown';
 import { CompressImageService } from 'src/app/service/compress-image.service';
 import { OrgnigationService } from 'src/app/service/orgnigation.service';
 import { take } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-add-blog',
@@ -168,52 +169,79 @@ export class AddBlogComponent implements OnInit {
 
   imgess:any;
   loading:any=false;
-  saveBlog(){
-    if(this.imgess!=null){if(this.imgess.includes(".")){this.blog.removeControl("images");}}    
-    if (this.blog.invalid) {
-      var invalidFields:any = [].slice.call(document.getElementsByClassName('ng-invalid'));
-      invalidFields[1].focus(); 
-      this.blog.get('blogTitle').markAsTouched();
-      this.blog.get('shortDescription').markAsTouched();
-      this.blog.get('images').markAsTouched();
-      this.blog.get('description').markAsTouched();
-      this.blog.get('categories').markAsTouched();
-    }
-    else{
-      this.loading = true;
-      this.getselectedid(this.selectedItems);
 
-      if(this.btn=="Update Blog"){
-        this.bloger.categories = this.benifitsselected;
-        this.uprod = this.bloger;
-      }
-      else{
-        this.blog.value.categories = this.benifitsselected;
-        this.uprod = this.blog.value;
-      }
-
-      this.uprod.url = this.orgnigation.replaceUrl(this.uprod.blogTitle.trim());
-      if(this.myFiles!=null){
-        var filename = this.orgnigation.getRandNum(10000000,99999999)+formatDate(new Date(), 'yyyy-MM-dd-HH-mm-ss', 'en')+".jpg";
-        this.uprod.images = this.imgurl+"assets/img/thamb/" + filename;
-        this.orgnigation.postFile("thamb",this.myFiles,filename).subscribe();
-      }
-      
-      this.orgnigation.saveBlog(this.uprod).subscribe(
-        (Response:any)=>{
-          localStorage.setItem("ublog",JSON.stringify(Response));
-          this.loading = false;
-          this.sucs = true;
-          this.message = "Blog Successfully updated!";
-          window.scroll(0,0);
-        },
-        error=>{
-          alert(JSON.stringify(error));
-        }
-      );
-      
-    }
+  saveBlog() {
+  if (this.imgess != null) { if (this.imgess.includes(".")) { this.blog.removeControl("images"); } }
+  if (this.blog.invalid) {
+    var invalidFields: any = [].slice.call(document.getElementsByClassName('ng-invalid'));
+    invalidFields[1].focus();
+    this.blog.get('blogTitle').markAsTouched();
+    this.blog.get('shortDescription').markAsTouched();
+    this.blog.get('images').markAsTouched();
+    this.blog.get('description').markAsTouched();
+    this.blog.get('categories').markAsTouched();
   }
+  else {
+    this.loading = true;
+    this.getselectedid(this.selectedItems);
+
+    // Prepare the data for API
+    let blogData: any;
+    if (this.btn == "Update Blog") {
+      // Update case
+      this.bloger.categories = this.benifitsselected;
+      this.bloger.blogTitle = this.blog.value.blogTitle;
+      this.bloger.shortDescription = this.blog.value.shortDescription;
+      this.bloger.description = this.blog.value.description;
+      blogData = {
+        ...this.bloger,
+        id: this.bloger.id
+      };
+    } else {
+      // Create case
+      this.blog.value.categories = this.benifitsselected;
+      blogData = this.blog.value;
+    }
+
+    blogData.url = this.orgnigation.replaceUrl(blogData.blogTitle.trim());
+
+    // Handle image upload if new image is selected
+    if (this.myFiles != null) {
+      var filename = this.orgnigation.getRandNum(10000000, 99999999) + formatDate(new Date(), 'yyyy-MM-dd-HH-mm-ss', 'en') + ".jpg";
+      blogData.images = this.imgurl + "assets/img/thamb/" + filename;
+      this.orgnigation.postFile("thamb", this.myFiles, filename).subscribe();
+    }
+
+    // Call appropriate API based on create/update
+    let apiCall: Observable<any>;
+    if (this.btn == "Update Blog") {
+      apiCall = this.orgnigation.updateBlog(blogData);
+    } else {
+      apiCall = this.orgnigation.saveBlog(blogData);
+    }
+
+    apiCall.subscribe(
+      (Response: any) => {
+        localStorage.setItem("ublog", JSON.stringify(Response));
+        this.loading = false;
+        this.sucs = true;
+        this.message = this.btn == "Update Blog" ? "Blog Successfully updated!" : "Blog Successfully created!";
+        window.scroll(0, 0);
+        
+        // If it was a create operation, reset the form
+        if (this.btn != "Update Blog") {
+          this.blog.reset();
+          this.selectedItems = [];
+          this.imgess = null;
+        }
+      },
+      error => {
+        this.loading = false;
+        alert(JSON.stringify(error));
+      }
+    );
+  }
+}
 
 
   

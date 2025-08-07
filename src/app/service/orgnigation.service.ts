@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
 function _window():any {
@@ -72,6 +73,9 @@ export class OrgnigationService {
   }
   getBlogs(pid:any){
     return this.http.get(`${this.baseUrl}/allblog`);
+  }
+  updateBlog(blogData: any): Observable<any> {
+    return this.http.post(`${this.baseUrl}/api/saveBlog`, blogData);
   }
   getVideoBlogs(pid:any){
     return this.http.get(`${this.baseUrl}/videoblog`);
