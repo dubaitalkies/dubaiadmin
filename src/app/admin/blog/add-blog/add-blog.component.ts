@@ -205,11 +205,11 @@ export class AddBlogComponent implements OnInit {
 
     blogData.url = this.orgnigation.replaceUrl(blogData.blogTitle.trim());
 
-    // Handle image upload if new image is selected
+
     if (this.myFiles != null) {
       var filename = this.orgnigation.getRandNum(10000000, 99999999) + formatDate(new Date(), 'yyyy-MM-dd-HH-mm-ss', 'en') + ".jpg";
-      blogData.images = this.imgurl + "assets/img/thamb/" + filename;
-      this.orgnigation.postFile("thamb", this.myFiles, filename).subscribe();
+      blogData.images ="https://docqura.goorito.com/dubaiblog/" + filename;
+      this.orgnigation.postFile("dubaiblog", this.myFiles, filename).subscribe();
     }
 
     // Call appropriate API based on create/update

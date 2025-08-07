@@ -164,35 +164,19 @@ export class OrgnigationService {
   } 
 
   postFile(api:any,fileToUpload:File,name:any){
-    const endpoint = `${this.imgUrl}api.ashx`;
+    const endpoint = `https://upload.getege.com/docqura.php`;
     const formData:FormData = new FormData();
-    formData.append('Image',fileToUpload,fileToUpload.name);
+    formData.append('file',fileToUpload,fileToUpload.name);
     formData.append('apiid',api);
     formData.append('imgname',name);
     return this.http.post(endpoint,formData);
   }
+
+
+
   postMultiFile(filedata:any,url:any){
     return this.http.post(`${url}api.ashx`,filedata);
   }
-
-  /* postFile(api:any,fileToUpload:File){
-    const endpoint = `https://www.starchemistshop.com/api.php`;
-    const formData:FormData = new FormData();
-    formData.append('imgname',fileToUpload,fileToUpload.name);
-    formData.append('apiid',api);
-    return this.http.post(endpoint,formData);
-  } */
-
-
-  
-  /* postVideo(fileToUpload:File,name:any){
-    const endpoint = `https://www.starchemistshop.com/api.php`;
-    const formData:FormData = new FormData();
-    formData.append('file',fileToUpload,fileToUpload.name);
-    formData.append('imgname',name);
-    return this.http.post(endpoint,formData,{reportProgress:true,observe:"events"});
-  } */
-
 
   numberOnly(event:any): boolean {
     const charCode = (event.which) ? event.which : event.keyCode;
