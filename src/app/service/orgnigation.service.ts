@@ -85,7 +85,7 @@ export class OrgnigationService {
   }
 
   saveCategory(data:any){
-    return this.http.post(`${this.baseUrl}/category`,data);
+    return this.http.post(`${this.baseUrl}/api/addCategory`,data);
   }
   getCategory(id:any){
     return this.http.get(`${this.baseUrl}/categorys`);
