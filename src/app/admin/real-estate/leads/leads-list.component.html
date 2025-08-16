@@ -1,0 +1,67 @@
+<app-header></app-header>
+<aside class="sidebar sidebar-left sidebar-menu">
+    <app-admin-menu></app-admin-menu>
+</aside>
+
+<section id="main" role="main">
+  <div class="container-fluid">
+    <div class="page-header page-header-block mb0">
+      <div class="page-header-section">
+        <div class="row">
+          <div class="col-md-3">
+            <h4 class="title semibold text-capitalize">Leads List</h4>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        <div class="panel panel-default">
+          <div class="table-responsive panel-collapse pull out">
+            <table id="datatable" class="table table-bordered table-hover"
+            >
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Name</th>
+                  <th>Company Name</th>
+                  <th>Property Title</th>
+                  <th>Email</th>
+                  <th>Mobile</th>
+                  <th>Interest Type</th>
+                  <th>Message</th>
+                  <th>Status</th>
+                  <th>Created At</th>
+                  <th class="text-center aewidth100">Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let lead of leads; index as i">
+                  <td>{{ i + 1 }}</td>
+                  <td>{{ lead.name }}</td>
+                  <td>{{ lead.company_name }}</td>
+                  <td><a target="_blank" href="https://www.dubaitalkies.com/{{lead.property_url}}" >{{ lead.property_title }}</a></td> 
+                  <td>{{ lead.email }}</td>
+                  <td>{{ lead.mobile }}</td>
+                  <td>{{ lead.interest_type }}</td>
+                  <td>{{ lead.message }}</td>
+                  <td>{{ lead.status }}</td>
+                  <td>{{ lead.created_at | date: 'short' }}</td>
+                  <td class="text-center">
+                    <i (click)="exportToExcel()" class="ico-share ar-pointer ar-blue mr5" title="Export"></i>
+                    <i (click)="deleteLead(lead.id)" class="ico-trash ar-pointer ar-red" title="Delete"></i>
+                  </td>
+                </tr>
+                <tr *ngIf="leads.length === 0">
+                  <td colspan="8" class="text-center">No data available</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+

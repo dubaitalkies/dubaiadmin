@@ -1,0 +1,77 @@
+<app-header></app-header>
+<aside class="sidebar sidebar-left sidebar-menu">
+    <app-admin-menu></app-admin-menu>
+</aside>
+
+<section id="main" role="main">
+  <div class="container-fluid">
+    <div class="page-header page-header-block mb0">
+      <div class="page-header-section">
+        <h4 class="title semibold text-capitalize">New Real Estate Builder</h4>
+      </div>
+      <div class="page-header-section">
+        <div class="toolbar">
+          <ol class="breadcrumb breadcrumb-transparent nm">
+            <li><a routerLink="/">Dashboard</a></li>
+            <li class="active">New Builder</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+
+    <div
+      class="alert alert-dismissable mt10"
+      [class.ar-none]="sucs == null"
+      [class.alert-success]="sucs === true"
+      [class.alert-danger]="sucs === false"
+    >
+      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
+        ×
+      </button>
+      {{ message }}
+      <strong><a routerLink="/builders">View Builders</a></strong>
+    </div>
+
+    <div class="row" [formGroup]="builderForm">
+      <div class="col-md-12">
+        <h3>Basic Details:</h3>
+      </div>
+
+      <div class="col-sm-6">
+        <label>Builder Name <span class="error">*</span></label>
+        <input
+          type="text"
+          class="form-control"
+          placeholder="Enter Builder Name"
+          [(ngModel)]="builder.builder_name"
+          formControlName="builder_name"
+        />
+      </div>
+
+      <div class="col-sm-6">
+        <label>Company Name</label>
+        <input
+          type="text"
+          class="form-control"
+          placeholder="Company Name"
+          [(ngModel)]="builder.company_name"
+          formControlName="company_name"
+        />
+      </div>
+      <div class="col-sm-4 mt10"> 
+          <label>Main Image</label>
+          <input (change)="onselectfile($event)" class="form-control" type="file" formControlName="company_logo"/>
+      </div>
+      <div *ngIf="imgess!=null" class="col-sm-4 mt10"> 
+          <img height="70px" [src]="imgess" alt="images">
+      </div>
+      <div class="col-sm-12 mt10">
+        <button (click)="saveBuilder()" class="btn btn-success">
+          {{ btn }}
+        </button>
+        <br /><br /><br /><br /><br />
+      </div>
+    </div>
+  </div>
+</section>
+

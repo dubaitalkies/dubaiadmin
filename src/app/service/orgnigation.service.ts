@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
@@ -161,17 +161,24 @@ export class OrgnigationService {
   sendSms(header:any,templateid:any,number:any,message:any){
     var api ="https://www.hellotext.live/vb/apikey.php?apikey=nNhf8ki8budw5qUG&senderid="+header+"&templateid="+templateid+"&number="+number+"&message="+ encodeURIComponent(message);
     return this.http.get(api).subscribe();
-  } 
-
-  postFile(api:any,fileToUpload:File,name:any){
-    const endpoint = `https://upload.getege.com/docqura.php`;
-    const formData:FormData = new FormData();
-    formData.append('file',fileToUpload,fileToUpload.name);
-    formData.append('apiid',api);
-    formData.append('imgname',name);
-    return this.http.post(endpoint,formData);
   }
 
+  // In your OrgnigationService
+  postFile(api: string, fileToUpload: File, name: string): Observable<any> {
+    const endpoint = `https://upload.getege.com/docqura.php`;
+    
+    const formData: FormData = new FormData();
+    formData.append('file', fileToUpload, fileToUpload.name);
+    formData.append('apiid', api);
+    formData.append('imgname', name);
+    
+    return this.http.post(endpoint, formData, {
+      headers: new HttpHeaders({
+        'Accept': 'application/json, text/plain, */*'
+      }),
+      responseType: 'json'
+    });
+  }
 
 
   postMultiFile(filedata:any,url:any){
@@ -197,5 +204,41 @@ export class OrgnigationService {
     }
     else{return data;}
   }
+  // real-estate apis
+  saveBuilder(data:any): Observable<any>{
+    return this.http.post(`${this.baseUrl}/api/builder`, data);
+  }
+  updateBuilder(id: number,data:any): Observable<any>{
+    return this.http.put(`${this.baseUrl}/api/builder/${id}`, data);
+  }
+  deleteBuilder(id: number): Observable<any>{
+    return this.http.delete(`${this.baseUrl}/api/builder/${id}`);
+  }
+  getBuilders(): Observable<any>{
+    return this.http.get(`${this.baseUrl}/api/builder`);
+  }
 
+
+  // leads
+  getRealEstateLeads(): Observable<any>{
+    return this.http.get(`${this.baseUrl}/api/leads`);
+  }
+
+
+  // properties
+  saveProperty(data:any): Observable<any>{
+    return this.http.post(`${this.baseUrl}/api/properties`, data);
+  }
+
+  updateProperty(id: number, data:any): Observable<any>{
+    return this.http.put(`${this.baseUrl}/api/properties/${id}`, data);
+  }
+
+  getProperties(): Observable<any>{
+    return this.http.get(`${this.baseUrl}/api/properties`);
+  }
+
+  deleteProperty(id: number): Observable<any>{
+    return this.http.delete(`${this.baseUrl}/api/properties/${id}`);
+  }
 }

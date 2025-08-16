@@ -1,0 +1,88 @@
+<app-header></app-header>
+<aside class="sidebar sidebar-left sidebar-menu">
+    <app-admin-menu></app-admin-menu>
+</aside>
+
+<section id="main" role="main">
+    <div class="container-fluid">
+        <div class="page-header page-header-block mb0">
+            <div class="page-header-section">
+                <div class="row">
+                    <div class="col-md-3">
+                        <h4 class="title semibold text-capitalize">Builders List</h4>
+                    </div>
+                    <div class="col-md-4">
+
+                    </div>
+                </div>
+            </div>
+            <div class="page-header-section">
+                <div class="toolbar">
+                    <button routerLink="/manage-builders" type="button" class="btn btn-danger mb5"><i class="ico-plus"></i>
+                        Add New Builder</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-default">
+                    <div class="table-responsive panel-collapse pull out">
+                        <table class="table table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th class="num">#</th>
+                                    <th class="num">Logo</th>
+                                    <th>Name</th>
+                                    <th>Company Name</th>
+                                    <th class="text-center aewidth100">Status</th>
+                                    <th class="text-center aewidth100">Update</th>
+                                </tr>
+                            </thead>
+
+                            <tbody runat="server" id="datatable" class="datatable">
+                                <tr *ngFor="let data of builders; index as i;">
+                                    <th class="num">{{ i+1 }}</th>
+                                    <td>
+                                        <div class="aerprofile">
+                                            <a target="_blank" href="https://www.dubaitalkies.com/{{data.url}}">
+                                                <img class="img-bordered" src="{{data.company_logo}}" alt="" height="60px">
+                                            </a>
+                                        </div>
+                                    </td>
+                                    <td>{{data.builder_name}}</td>
+                                    <td>{{data.company_name}}</td>
+                                    <td class="text-center">
+                                        <label class="switch switch-success">
+                                            <input 
+                                            type="checkbox" 
+                                            [checked]="data.status === 'Active'"
+                                            (change)="onToggleStatus(i, $event)"
+                                            >
+                                            <span class="switch"></span>
+                                        </label>
+                                    </td>
+
+                                    <td class="text-center">
+                                        <i (click)="updateBuilder(i)" routerLink="/update-builder/{{data.id}}" class="ico-pencil3 ar-pointer ar-blue mr5" title="Edit"></i>
+                                        <i (click)="deleteBuilder(data.id)" class="ico-trash ar-pointer ar-red" title="Delete"></i>
+                                    </td>
+                                </tr>
+                                <tr *ngIf="builders.length === 0">
+                                    <td colspan="11">{{nodata}}</td>
+                                </tr>
+                                <tr *ngIf="loging">
+                                    <td colspan="11">
+                                        <div class="text-center ptb-50">
+                                            <img src="/assets/image/loading/spinner1tr@2x.gif" alt="aeromus.com" />
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

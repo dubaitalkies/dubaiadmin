@@ -143,12 +143,6 @@ export class AddBlogComponent implements OnInit {
   };
   dropDownSelect=false;
 
-  /* onDropDownClose(){
-    if(this.dropDownSelect){
-      this.dropDownSelect=false;
-      this.getselectedid(this.selectedItems);
-    }
-  } */
   benifitsselected:any="";
   getselectedid(item: any){
     this.benifitsselected = "";
@@ -260,38 +254,4 @@ export class AddBlogComponent implements OnInit {
         this.myFiles = compressedImage;
       })
   }
-  /* onselectfile(e: any) {
-    const reader = new FileReader();
-    if(e.target.files && e.target.files.length) {
-      const imgfile = e.target.files[0];
-      reader.readAsDataURL(imgfile);
-      reader.onload = async () => {
-        await this.resizeImage(reader.result as string).then((resolve: any) => {
-          this.myFiles = resolve;
-          this.imgess = reader.result;
-          this.uploadForm.patchValue({
-            imgSrc: resolve
-          });
-        });
-      };
-    }
-  } */
-  
-  /* resizeImage(imageURL: any): Promise<any> {
-    return new Promise((resolve) => {
-      const image = new Image();
-      image.onload = function () {
-        const canvas = document.createElement('canvas');
-        canvas.width = 200;
-        canvas.height = 200;
-        const ctx = canvas.getContext('2d');
-        if (ctx != null) {
-          ctx.drawImage(image, 0, 0, 200, 200);
-        }
-        var data = canvas.toDataURL('image/jpeg', 1);
-        resolve(data);
-      };
-      image.src = imageURL;
-    });
-  } */
 }

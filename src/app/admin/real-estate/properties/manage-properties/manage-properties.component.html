@@ -1,0 +1,142 @@
+<app-header></app-header>
+<aside class="sidebar sidebar-left sidebar-menu">
+    <app-admin-menu></app-admin-menu>
+</aside>
+
+
+<section id="main" role="main">
+  <div class="container-fluid">
+    <!-- Header -->
+    <div class="page-header page-header-block mb0">
+      <div class="page-header-section">
+        <h4 class="title semibold text-capitalize">
+          {{ btn || 'Edit Property' }}
+        </h4>
+      </div>
+      <div class="page-header-section">
+        <div class="toolbar">
+          <ol class="breadcrumb breadcrumb-transparent nm">
+            <li><a routerLink="/">Dashboard</a></li>
+            <li class="active">{{ btn || 'Edit Property' }}</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+
+    <!-- Success/Error -->
+    <div
+      class="alert alert-dismissable mt10"
+      [class.ar-none]="sucs == null"
+      [class.alert-success]="sucs === true"
+      [class.alert-danger]="sucs === false"
+    >
+      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
+        ×
+      </button>
+      {{ message }}
+      <strong><a routerLink="/real-estate/properties">View All Properties</a></strong>
+    </div>
+
+    <!-- Form -->
+    <div class="row" [formGroup]="propertyForm">
+      <!-- Title -->
+      <div class="col-sm-12 mt10">
+        <label>Property Title <span class="error">*</span></label>
+        <input
+          type="text"
+          class="form-control"
+          placeholder="Property Title"
+          [(ngModel)]="propertyData.title"
+          formControlName="title"
+        />
+      </div>
+
+      <div class="form-group col-sm-4 mt10"> 
+        <label for="builder">Select Builder</label>
+        <select id="builder" formControlName="builder_id" class="form-control">
+            <option value="">-- Select Builder --</option>
+            <option *ngFor="let builder of buildersList" [value]="builder.id">
+            {{ builder.builder_name }}
+            </option>
+        </select>
+        <div *ngIf="propertyForm.get('builder_id')?.touched && propertyForm.get('builder_id')?.invalid" class="text-danger">
+            Please select a builder
+        </div>
+      </div>
+      
+      <!-- Price -->
+      <div class="col-sm-4 mt10">
+        <label>Price (AED) <span class="error">*</span></label>
+        <input
+          type="number"
+          class="form-control"
+          [(ngModel)]="propertyData.price"
+          formControlName="price"
+        />
+      </div>
+      
+      <!-- Location -->
+      <div class="col-sm-4 mt10">
+        <label>Location <span class="error">*</span></label>
+        <input
+          type="text"
+          class="form-control"
+          placeholder="Location"
+          [(ngModel)]="propertyData.location"
+          formControlName="location"
+        />
+      </div>
+
+      <!-- Short Description -->
+      <div class="col-sm-12 mt10">
+        <label>Short Description <span class="error">*</span></label>
+        <textarea
+          class="form-control"
+          rows="3"
+          [(ngModel)]="propertyData.short_description"
+          formControlName="short_description"
+        ></textarea>
+      </div>
+
+      <!-- Main Image -->
+      <div class="form-group col-sm-12 mt10">
+        <label>Main Image</label>
+        <input type="file" class="form-control" (change)="onMainImageChange($event)" accept="image/*">
+        <div *ngIf="mainImagePreview" class="mt10">
+          <img [src]="mainImagePreview" alt="Preview" style="max-height: 120px; border: 1px solid #ccc;">
+        </div>
+      </div>
+
+      <!-- Multiple Images -->
+      <div class="form-group col-sm-12 mt10">
+        <label>Gallery Images</label>
+        <input type="file" class="form-control" (change)="onMultipleImagesChange($event)" accept="image/*" multiple>
+        <div class="mt10 d-flex flex-wrap">
+          <img *ngFor="let img of multipleImagesPreview" [src]="img" alt="Preview" style="max-height: 100px; margin: 4px; border: 1px solid #ccc;">
+        </div>
+      </div>
+
+      <!-- Description -->
+      <div class="col-sm-12 mt10">
+        <label>Full Description</label>
+        <angular-editor
+          formControlName="description"
+          [(ngModel)]="propertyData.description"
+          [config]="editorConfig"
+        ></angular-editor>
+      </div>
+
+      <!-- Save Button -->
+      <div class="col-sm-12 mt10">
+        <button (click)="saveProperty()" class="btn btn-success">
+          <img
+            *ngIf="loading"
+            src="https://img.getege.com/main/ar1.gif"
+            alt="loading"
+          />
+          <span *ngIf="!loading">{{ btn || 'Save Property' }}</span>
+        </button><br><br><br><br><br>
+      </div>
+    </div>
+  </div>
+</section>
