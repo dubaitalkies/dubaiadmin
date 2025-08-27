@@ -13,6 +13,7 @@ import { OrgnigationService } from 'src/app/service/orgnigation.service';
   styleUrls: ['./manage-builders.component.css']
 })
 export class ManageBuildersComponent {
+  builderId: string | null = null;
   sucs: any;
   message: string = 'Builder details saved successfully!';
   btn: string = 'Save Builder';
@@ -39,8 +40,9 @@ export class ManageBuildersComponent {
   ) {
     window.scroll(0, 0);
     this.activatedroute.params.subscribe((data: any) => {
-      this.type = data.type;
-      if (this.type != null) {
+      this.builderId = data['id'] || null;
+
+      if (this.builderId) {
         const savedBuilder = localStorage.getItem('STORED_BUILDER');
         if (savedBuilder != null) {
           this.builder = JSON.parse(savedBuilder);

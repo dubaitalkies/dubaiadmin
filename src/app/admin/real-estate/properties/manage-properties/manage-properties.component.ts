@@ -12,6 +12,7 @@ import { OrgnigationService } from 'src/app/service/orgnigation.service';
   styleUrls: ['./manage-properties.component.css'],
 })
 export class ManagePropertiesComponent implements OnInit {
+  propertyId: string | null = null; 
   sucs: any;
   message: string = 'This property has been successfully saved!';
   selectedItems: any[] = [];
@@ -62,7 +63,9 @@ export class ManagePropertiesComponent implements OnInit {
   ) {
     const storedProp = localStorage.getItem('STORED_PROPERTY');
     this.activatedroute.params.subscribe((params: any) => {
-      if (params.type) {
+      this.propertyId = params['id'];
+
+      if (this.propertyId) {
         this.btn = 'Update Property';
         if (storedProp) {
           this.propertyData = JSON.parse(storedProp);
@@ -202,7 +205,6 @@ export class ManagePropertiesComponent implements OnInit {
     }
   }
 
-  // In your component
   async saveProperty() {
     if (this.propertyForm.invalid) {
       this.markFormGroupTouched(this.propertyForm);

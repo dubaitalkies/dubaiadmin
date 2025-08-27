@@ -9,15 +9,21 @@
             <div class="page-header-section">
                 <div class="row">
                     <div class="col-md-3">
-                        <h4 class="title semibold text-capitalize">Property</h4>
+                        <h4 class="title semibold text-capitalize">Properties</h4>
                     </div>
-                    <div class="col-md-4">
-                        
-                    </div>
+                    
                 </div>
             </div>
             <div class="page-header-section">
-                <div class="toolbar">
+                <div class="form-group col-sm-4 mt10"> 
+                    <select id="builder" class="form-control" (change)="handleFilter($event)">
+                        <option value="" selected>-- Filter By Builder --</option>
+                        <option *ngFor="let builder of buildersList" [value]="builder.id">
+                            {{ builder.builder_name }}
+                        </option>
+                    </select>
+                </div>
+                <div class="form-group col-sm-4 mt10">
                     <button routerLink="/manage-properties" type="button" class="btn btn-danger mb5"><i class="ico-plus"></i> Add New Property</button>
                 </div>
             </div>
@@ -39,7 +45,7 @@
                 </div>
                 <div class="panel panel-default">
                     <div class="table-responsive panel-collapse pull out">
-                        <table class="table table-bordered table-hover">
+                        <table class="table table-bordered table-hover" *ngIf="properties.length > 0">
                             <thead>
                                 <tr>
                                     <th class="num">#</th> 
@@ -56,7 +62,7 @@
                                 </tr>
                             </thead>
                             <tbody runat="server" id="datatable" class="datatable">
-                                <tr [class.success]="data.status=='Accepted'?true:false" [class.danger]="data.sts=='0'?true:false"  *ngFor="let data of properties; index as i;">
+                                <tr [class.success]="data.status=='Accepted'?true:false" [class.danger]="data.sts=='0'?true:false"  *ngFor="let data of filteredProperties || properties; index as i;">
                                     <th class="num">{{ i+1 }}</th> 
                                     <td>
                                         <div class="aerprofile">
@@ -87,7 +93,7 @@
                                         <i (click)="deleteProperty(data.id)" class="ico-trash ar-pointer ar-red" title="Delete"></i>
                                     </td>
                                 </tr>
-                                <tr *ngIf="properties.length === 0">
+                                <tr *ngIf="(filteredProperties || properties).length === 0">
                                     <td colspan="11">{{nodata}}</td>
                                 </tr>
                                 <tr *ngIf="loader">

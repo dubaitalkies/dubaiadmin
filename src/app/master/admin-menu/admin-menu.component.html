@@ -1,117 +1,96 @@
 <section class="content slimscroll">
-    <ul class="topmenu topmenu-responsive" data-toggle="menu">
+    <ul class="topmenu">
         <li class="active">
             <a routerLink="/" data-target="#dashboard" data-parent=".topmenu">
                 <span class="figure"><i class="ico-home2"></i></span>
                 <span class="text">Dashboard</span>
             </a>
         </li>
-
-        <li>
+        <!-- Categories -->
+        <li [ngClass]="{'active': isActive(['/category','/category-list'])}" routerLinkActive="active">
             <a href="javascript:void(0);" data-toggle="submenu" data-target="#categories" data-parent=".topmenu">
                 <span class="figure"><i class="ico-building"></i></span>
                 <span class="text">Categories</span>
                 <span class="arrow"></span>
             </a>
-            <ul id="categories" class="submenu collapse ">
-                <li >
-                    <a routerLink="/category" data-parent=".topmenu">
-                        <span class="text">Add Category</span>
-                    </a>
+            <ul id="categories" class="submenu"
+                [ngClass]="{'collapse show': isActive(['/category','/category-list']), 'collapse': !isActive(['/category','/category-list'])}">
+                <li routerLinkActive="active">
+                    <a routerLink="/category"><span class="text">Add Category</span></a>
                 </li>
-                <li >
-                    <a routerLink="/category-list" data-parent=".topmenu">
-                        <span class="text">Category List</span>
-                    </a>
+                <li routerLinkActive="active">
+                    <a routerLink="/category-list"><span class="text">Category List</span></a>
                 </li>
             </ul>
         </li>
-        <li>
-            <a href="javascript:void(0);" data-toggle="submenu" data-target="#blog" data-parent=".topmenu">
-                <span class="figure"><i class="ico-address-book"></i></span>
+        <!-- Blog -->
+        <li [ngClass]="{'active': isActive(['/add-blog','/blog'])}" routerLinkActive="active">
+            <a href="javascript:void(0);" data-toggle="submenu" data-target="#blogs" data-parent=".topmenu">
+                <span class="figure"><i class="ico-file"></i></span>
                 <span class="text">Blog</span>
                 <span class="arrow"></span>
             </a>
-            <ul id="blog" class="submenu collapse ">
-                <li >
-                    <a routerLink="/add-blog" data-parent=".topmenu">
-                        <span class="text">New Blog</span>
-                    </a>
+            <ul id="blogs" class="submenu"
+                [ngClass]="{'collapse show': isActive(['/add-blog','/blog']), 'collapse': !isActive(['/add-blog','/blog'])}">
+                <li routerLinkActive="active">
+                    <a routerLink="/add-blog"><span class="text">Add Blog</span></a>
                 </li>
-                <li >
-                    <a routerLink="/blog" data-parent=".topmenu">
-                        <span class="text">Blog</span>
-                    </a>
+                <li routerLinkActive="active">
+                    <a routerLink="/blog"><span class="text">Blog List</span></a>
                 </li>
             </ul>
         </li>
-        <li>
-            <a href="javascript:void(0);" data-toggle="submenu" data-target="#real-estate" data-parent=".topmenu">
+
+        <!-- Builders -->
+        <li [ngClass]="{'active': isActive(['/builders'])}" routerLinkActive="active">
+            <a href="javascript:void(0);" data-toggle="submenu" data-target="#builders" data-parent=".topmenu">
                 <span class="figure"><i class="ico-building"></i></span>
                 <span class="text">Builders</span>
                 <span class="arrow"></span>
             </a>
-            <ul id="real-estate" class="submenu collapse ">
-                <li >
-                    <a routerLink="/manage-builders" data-parent=".topmenu">
-                        <span class="text">Manage Builder</span>
-                    </a>
+            <ul id="builders" class="submenu"
+                [ngClass]="{'collapse show': isActive(['/builders']), 'collapse': !isActive(['/builders'])}">
+                <li routerLinkActive="active">
+                    <a routerLink="/manage-builders"><span class="text">Add Builder</span></a>
                 </li>
-                <li >
-                    <a routerLink="/builders" data-parent=".topmenu">
-                        <span class="text">Builder List</span>
-                    </a>
+                <li routerLinkActive="active">
+                    <a routerLink="/builders"><span class="text">Builder List</span></a>
                 </li>
             </ul>
         </li>
 
-        <li>
-            <a href="javascript:void(0);" data-toggle="submenu" data-target="#real-estate-properties" data-parent=".topmenu">
-                <span class="figure"><i class="ico-home"></i></span>
+        <!-- Properties -->
+        <li [ngClass]="{'active': isActive(['/properties'])}"
+            routerLinkActive="active">
+            <a href="javascript:void(0);" data-toggle="submenu" data-target="#properties" data-parent=".topmenu">
+                <span class="figure"><i class="ico-key"></i></span>
                 <span class="text">Properties</span>
                 <span class="arrow"></span>
             </a>
-            <ul id="real-estate-properties" class="submenu collapse ">
-                <li >
-                    <a routerLink="/manage-properties" data-parent=".topmenu">
-                        <span class="text">Manage Properties</span>
-                    </a>
+            <ul id="properties" class="submenu"
+                [ngClass]="{'collapse show': isActive(['/properties']), 'collapse': !isActive(['/properties'])}">
+                <li routerLinkActive="active">
+                    <a routerLink="/manage-properties"><span class="text">Add Property</span></a>
                 </li>
-                <li >
-                    <a routerLink="/real-estate/properties" data-parent=".topmenu">
-                        <span class="text">Properties List</span>
-                    </a>
+                <li routerLinkActive="active">
+                    <a routerLink="/real-estate/properties"><span class="text">Property List</span></a>
                 </li>
             </ul>
         </li>
 
-        <li>
-            <a href="javascript:void(0);" data-toggle="submenu" data-target="#real-estate-leads" data-parent=".topmenu">
+        <!-- Leads -->
+        <li [ngClass]="{'active': isActive(['/real-estate/leads'])}" routerLinkActive="active">
+            <a href="javascript:void(0);" data-toggle="submenu" data-target="#leads" data-parent=".topmenu">
                 <span class="figure"><i class="ico-users"></i></span>
                 <span class="text">Leads</span>
                 <span class="arrow"></span>
             </a>
-            <ul id="real-estate-leads" class="submenu collapse ">
-                <!-- <li >
-                    <a routerLink="/manage-builders" data-parent=".topmenu">
-                        <span class="text">Manage Leads</span>
-                    </a>
-                </li> -->
-                <li >
-                    <a routerLink="/real-estate/leads" data-parent=".topmenu">
-                        <span class="text">Leads</span>
-                    </a>
+            <ul id="leads" class="submenu"
+                [ngClass]="{'collapse show': isActive(['/real-estate/leads']), 'collapse': !isActive(['/real-estate/leads'])}">
+                <li routerLinkActive="active">
+                    <a routerLink="/real-estate/leads"><span class="text">Leads List</span></a>
                 </li>
             </ul>
         </li>
     </ul>
-    <div class="text-center">
-        <!-- <ng-adsense
-            [adClient]="'ca-pub-5211687155804948'"
-            [adSlot]="4445546890"
-            [display]="'inline-block'"
-            [width]="230"
-            [height]="700">
-        </ng-adsense> -->
-    </div>
 </section>

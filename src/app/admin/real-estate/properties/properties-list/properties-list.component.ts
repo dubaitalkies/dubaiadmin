@@ -9,14 +9,25 @@ import { OrgnigationService } from 'src/app/service/orgnigation.service';
 })
 export class PropertiesListComponent {
   properties: any = [];
+  filteredProperties: any = null;
+  buildersList: any[] = [];
   loader: any = true;
-  nodata: String = 'No properties posted at this time.';
+  nodata: string = 'No properties posted at this time.';
 
   constructor(public orgnigation: OrgnigationService, private router: Router) {
     this.loadProperties();
   }
 
-  ngOnInit(): void {}
+  ngOnInit() {
+    this.loadBuilders();
+  }
+
+  loadBuilders() {
+    this.buildersList = [];
+    this.orgnigation.getBuilders().subscribe((resp: any) => {
+      this.buildersList = resp?.data || [];
+    });
+  }
 
   onToggleStatus(index: number, event: Event) {
       const inputEl = event.target as HTMLInputElement;
@@ -63,7 +74,20 @@ export class PropertiesListComponent {
   }
 
   updateProperty(pos: any) {
-    localStorage.setItem('STORED_PROPERTY', JSON.stringify(this.properties[pos]));
-      this.router.navigate(['/manage-properties/update']);
+    const selectedProperty = this.properties[pos];
+    localStorage.setItem('STORED_PROPERTY', JSON.stringify(selectedProperty));
+    this.router.navigate([`/manage-properties/${selectedProperty?.id}`]);
+  }
+
+  handleFilter(event: Event) {
+    const selectElement = event.target as HTMLSelectElement;
+    const builderId = selectElement.value;
+    if (!builderId) {
+      this.filteredProperties = null;
+      return;
+    }
+    this.filteredProperties = this.properties.filter(
+      (p: any) => p.builder_id === builderId
+    );
   }
 }

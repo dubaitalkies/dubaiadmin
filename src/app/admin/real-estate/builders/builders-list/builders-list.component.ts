@@ -71,7 +71,7 @@ export class BuildersListComponent {
     updateBuilder(pos:any){
       const selectedBuilder = this.builders[pos];
       localStorage.setItem("STORED_BUILDER",JSON.stringify(selectedBuilder));
-      this.router.navigate(['/manage-builders/update']);
+      this.router.navigate([`/manage-builders/${selectedBuilder?.id}`]);
     }
 
     onKey(event:any){

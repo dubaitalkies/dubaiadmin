@@ -32,11 +32,11 @@ const routes: Routes = [
   {path:"update-video/:url",component:VideoAddComponent},
   {path:"builders",component:BuildersListComponent},
   {path:"manage-builders",component:ManageBuildersComponent},
-  {path:"manage-builders/:type",component:ManageBuildersComponent},
+  {path:"manage-builders/:id",component:ManageBuildersComponent},
   {path:"real-estate/leads",component:LeadsListComponent},
   {path:"real-estate/properties",component:PropertiesListComponent},
-  {path:"manage-properties",component:ManagePropertiesComponent},
-  {path:"manage-properties/:type",component:ManagePropertiesComponent},
+  { path: "manage-properties", component: ManagePropertiesComponent },
+  { path: "manage-properties/:id", component: ManagePropertiesComponent }
 ];
 
 @NgModule({
